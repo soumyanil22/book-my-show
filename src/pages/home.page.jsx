@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 // Components
 import EntertainmentCardSlider from "../components/Entertainment/Entertainmentcard.component";
@@ -8,6 +9,17 @@ import PosterSlider from "../components/PosterSlider/PosterSlider.component";
 import TempPosters from "../config/TempPosters.config"
 
 const HomePage = () => {
+
+  const [popularMovies, setpopularMovies] = useState([]);
+
+  useEffect(() => {
+    const requestPopularMovies = async () => {
+      const getPopularMovies = await axios.get("/movie/popular");
+      setpopularMovies(getPopularMovies.data.results);
+    };
+    requestPopularMovies();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-10">
@@ -27,7 +39,7 @@ const HomePage = () => {
               />
             </div>
             <PosterSlider
-              images={TempPosters}
+              images={popularMovies}
               title="Premieres"
               subtitle="Watch new movies at home every Friday"
               isDark

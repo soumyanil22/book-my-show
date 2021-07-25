@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HeroSlider from "react-slick";
+import axios from "axios";
 
 // Component
 import { NextArrow, PrevArrow } from "./Arrows.components";
 
 const HeroCarousel = () => {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const requestNowPlayingMovies = async () => {
+      const getImages = await axios.get("/movie/now_playing");
+      setImages(getImages.data.results);
+    };
+    requestNowPlayingMovies();
+  }, []);
+
   const settingsLG = {
     arrows: true,
     autoplay: true,
@@ -27,21 +38,17 @@ const HeroCarousel = () => {
     PrevArrow: <PrevArrow />,
   };
 
-  const images = [
-    "https://images.pexels.com/photos/3342739/pexels-photo-3342739.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6185245/pexels-photo-6185245.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/3952231/pexels-photo-3952231.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/4065165/pexels-photo-4065165.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-    "https://images.pexels.com/photos/7299465/pexels-photo-7299465.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-  ];
-
   return (
     <>
       <div className="lg:hidden">
         <HeroSlider {...settings}>
           {images.map((image) => (
             <div className="w-full h-56 md:h-80 py-3">
-              <img src={image} alt="testing" className="w-full h-full" />
+              <img
+                src={`https://image.tmdb.org/t/p/original${image.backdrop_path}`}
+                alt="testing"
+                className="w-full h-full"
+              />
             </div>
           ))}
         </HeroSlider>
@@ -51,7 +58,7 @@ const HeroCarousel = () => {
           {images.map((image) => (
             <div className="w-full h-96 px-2 py-3">
               <img
-                src={image}
+                src={`https://image.tmdb.org/t/p/original${image.backdrop_path}`}
                 alt="testing"
                 className="w-full h-full rounded-md"
               />
