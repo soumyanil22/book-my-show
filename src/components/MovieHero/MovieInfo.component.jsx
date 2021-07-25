@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+
+// Context
+import { MovieContext } from "../../Context/movie.context";
 
 const MovieInfo = () => {
+  const { movie } = useContext(MovieContext);
+
+// optional chaining
+  const genres = movie.genres?.map(({ name }) => name).join(",")
+
   return (
     <>
       <div className="flex flex-col gap-3 lg:gap-8">
@@ -16,12 +24,12 @@ const MovieInfo = () => {
             Streaming Now
           </span>
         </div>
-        <h1 className="hidden lg:block text-white lg:text-5xl font-bold">Justice League</h1>
+        <h1 className="hidden lg:block text-white lg:text-5xl font-bold">{movie.original_title}</h1>
         <div className="flex flex-col-reverse gap-3 lg:gap-5 lg:flex-col">
           <div className="text-white font-light flex flex-col gap-2 md:px-4">
-            <h4>4K &bull; English &bull; Action </h4>
+            <h4>4K &bull; {movie.original_language} &bull; Action </h4>
             <h4>
-              4h 1m &bull; Action,Adventure,Fantasy &bull; 16+ &bull; 18
+              {(movie.runtime / 60).toFixed(2)} h &bull; {genres} &bull; 16+ &bull; 18
               Mar,2021{" "}
             </h4>
           </div>

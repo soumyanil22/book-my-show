@@ -10,14 +10,32 @@ import TempPosters from "../config/TempPosters.config"
 
 const HomePage = () => {
 
-  const [popularMovies, setpopularMovies] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
 
   useEffect(() => {
     const requestPopularMovies = async () => {
       const getPopularMovies = await axios.get("/movie/popular");
-      setpopularMovies(getPopularMovies.data.results);
+      setPopularMovies(getPopularMovies.data.results);
     };
     requestPopularMovies();
+  }, []);
+
+  useEffect(() => {
+    const requestTopRatedMovies = async () => {
+      const getTopRatedMovies = await axios.get("/movie/top_rated");
+      setTopRatedMovies(getTopRatedMovies.data.results);
+    };
+    requestTopRatedMovies();
+  }, []);
+
+  useEffect(() => {
+    const requestUpcomingMovies = async () => {
+      const getUpcomingMovies = await axios.get("/movie/upcoming");
+      setUpcomingMovies(getUpcomingMovies.data.results);
+    };
+    requestUpcomingMovies();
   }, []);
 
   return (
@@ -50,22 +68,15 @@ const HomePage = () => {
 
       <div className="container mx-auto px-4 my-8">
         <PosterSlider
-          images={TempPosters}
+          images={topRatedMovies}
           title="Online Streaming Events"
           isDark={false}
         />
       </div>
       <div className="container mx-auto px-4 my-8">
         <PosterSlider
-          images={TempPosters}
+          images={upcomingMovies}
           title="Outdoor Events"
-          isDark={false}
-        />
-      </div>
-      <div className="container mx-auto px-4 my-8">
-        <PosterSlider
-          images={TempPosters}
-          title="Popular Events"
           isDark={false}
         />
       </div>
