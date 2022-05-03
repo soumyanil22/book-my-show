@@ -38,7 +38,7 @@ const NavMd = () => {
 const NavLg = () => {
   return (
     <>
-      <div className="container mx-auto px-10 flex items-center justify-between">
+      <div className="container mx-auto px-10 flex items-center justify-between bg-drala-400">
         <div className="flex item-center w-1/2 gap-3">
           <div className="w-12 h-6">
             <img

@@ -6,7 +6,7 @@ import EntertainmentCardSlider from "../components/Entertainment/Entertainmentca
 import PosterSlider from "../components/PosterSlider/PosterSlider.component";
 
 // config
-import TempPosters from "../config/TempPosters.config"
+// import TempPosters from "../config/TempPosters.config"
 
 const HomePage = () => {
 
